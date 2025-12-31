@@ -1,20 +1,21 @@
-import { Button } from "@chakra-ui/react"
-import { MouseEventHandler } from "react"
+import {Button} from "@chakra-ui/react"
+import type {MouseEventHandler} from "react"
 
 interface IDButton {
-    onClick: MouseEventHandler
+    onClick: MouseEventHandler,
+    message?: string,
 }
 
-export const DButton = ({ onClick }: IDButton) => {
-    return(
+export const DButton = ({onClick, message}: IDButton) => {
+    return (
         <Button
-          onClick={onClick}
-          colorScheme="teal"
-          size="sm"
-          width="100%"
-          marginTop="5px"
+            onClick={onClick}
+            colorScheme="teal"
+            size="sm"
+            width="100%"
+            marginTop="5px"
         >
-          Entrar
+            {message ? message : "Entrar"}
         </Button>
     )
 }

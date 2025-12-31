@@ -1,9 +1,9 @@
-import { Center, SimpleGrid, Spinner } from "@chakra-ui/react"
-import { useParams, useNavigate } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
-import { api } from "../api"
+import {Center, SimpleGrid, Spinner} from "@chakra-ui/react"
+import {useParams, useNavigate} from "react-router-dom"
+import {useContext, useEffect, useState} from "react"
+import {api} from "../api"
 import CardInfo from "../components/CardInfo"
-import { AppContext } from "../components/AppContext"
+import {AppContext} from "../components/AppContext"
 
 interface UserData {
     email: string
@@ -14,11 +14,11 @@ interface UserData {
 }
 
 const Conta = () => {
-    const [ userData, setUserData ] = useState<null | UserData>()
-    const { id } = useParams()
+    const [userData, setUserData] = useState<null | UserData>()
+    const {id} = useParams()
     const navigate = useNavigate()
 
-    const { isLoggedIn } = useContext(AppContext)
+    const {isLoggedIn} = useContext(AppContext)
 
     !isLoggedIn && navigate('/')
 
@@ -33,28 +33,30 @@ const Conta = () => {
 
     const actualData = new Date()
 
-    if(userData && id !== userData.id) {
+    if (userData && id !== userData.id) {
         navigate('/')
     }
-  
+
     return (
         <Center>
             <SimpleGrid columns={2} spacing={8} paddingTop={16}>
                 {
                     userData === undefined || userData === null ?
-                    (  
-                        <Center>
-                            <Spinner size='xl' color='white'/>
-                        </Center>
-                    ) : 
-                    (
-                        <>
-                            <CardInfo mainContent={`Bem vinda ${userData?.name}`} content={`${actualData.getDay()} / ${actualData.getMonth()} / ${actualData.getFullYear()} ${actualData.getHours()}:${actualData.getMinutes()}`} />
-                            <CardInfo mainContent='Saldo' content={`R$ ${userData.balance}`}/>
-                        </>
-                    )
+                        (
+                            <Center>
+                                <Spinner size='xl' color='white'/>
+                            </Center>
+                        ) :
+                        (
+                            <>
+                                <CardInfo onClick={() => navigate("/infoconta")}
+                                          mainContent={`Seja Bem Vindo ${userData?.name}`}
+                                          content={`${actualData.getDate()} / ${actualData.getMonth() + 1} / ${actualData.getFullYear()} ${actualData.getHours()}:${actualData.getMinutes()}`}/>
+                                <CardInfo mainContent='Saldo' content={`R$ ${userData.balance}`}/>
+                            </>
+                        )
                 }
-            </SimpleGrid>    
+            </SimpleGrid>
         </Center>
     )
 }
